@@ -1,7 +1,7 @@
-const LoginPage = () => {
-  return (
-    <div>LoginPage</div>
-  )
-}
+import LoginMenu from "./(components)/LoginMenu";
 
-export default LoginPage
+const LoginPage = () => {
+  return <LoginMenu />;
+};
+
+export default LoginPage;
