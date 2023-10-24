@@ -1,6 +1,35 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import service from "../(service)/service";
+
+const dateFormating = (date) => {
+  let [d, m, y] = date.split(/\D/);
+  console.log("20" + y + "-" + m + "-" + d);
+  return "20" + y + "-" + m + "-" + d;
+};
 
 const TableRow = ({ number, row }) => {
+  console.log(row.birthday_date);
+  const [rowData, setRowData] = useState({
+    name: row.name,
+    email: row.email,
+    birthday_date: dateFormating(row.birthday_date),
+    phone_number: row.phone_number,
+    address: row.address,
+  });
+
+  const handleChange = (key, e) => {
+    setRowData((prev) => {
+      return { ...prev, [key]: e.target.value };
+    });
+  };
+
+  const onClick = async () => {
+    const resp = await service.updateData(row.id, rowData);
+    if (resp) {
+      console.log(resp);
+    }
+  };
+
   return (
     <tr>
       <td>
@@ -10,14 +39,24 @@ const TableRow = ({ number, row }) => {
           defaultValue={number + 1}
         />
       </td>
-      {Object.values(row).map((td, id) => (
+      <td>
+        <textarea
+          className="w-full border-solid border-2 p-1 resize-none"
+          defaultValue={row.id}
+        />
+      </td>
+      {Object.entries(rowData).map((pare, id) => (
         <td key={id}>
           <textarea
             className="w-full border-solid border-2 p-1 resize-none"
-            defaultValue={td}
+            defaultValue={pare[1]}
+            onChange={(e) => handleChange(pare[0], e)}
           />
         </td>
       ))}
+      <td>
+        <button onClick={onClick}>V</button>
+      </td>
     </tr>
   );
 };

@@ -24,4 +24,19 @@ const getData = async () => {
   }
 };
 
-export default { login, getData };
+const updateData = async (id, requestData) => {
+  try {
+    const response = await fetch(`${url}/table/${id}/`, {
+      method: "PATCH",
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export default { login, getData, updateData };
