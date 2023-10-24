@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import service from "../(service)/service";
+import TableRow from "../(components)/TableRow";
 
 const DataPage = () => {
   const [data, setData] = useState(null);
@@ -16,8 +17,8 @@ const DataPage = () => {
   }, []);
 
   return (
-    <section className="">
-      <table className="w-full ">
+    <section className="h-[80vh] overflow-y-auto">
+      <table className="w-full">
         <thead>
           <tr>
             <th className="sticky top-0 bg-neutral-600 text-white border-solid border-2 p-1">
@@ -39,27 +40,9 @@ const DataPage = () => {
 
         <tbody className="">
           {data &&
-            data.results.map((row, id) => {
-              return (
-                <tr key={row.id}>
-                  <td>
-                    <textarea
-                      disabled
-                      className="w-full border-solid border-2 p-1 resize-none"
-                      defaultValue={id + 1}
-                    />
-                  </td>
-                  {Object.values(row).map((td, id) => (
-                    <td key={id}>
-                      <textarea
-                        className="w-full border-solid border-2 p-1 resize-none"
-                        defaultValue={td}
-                      />
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
+            data.results.map((row, id) => (
+              <TableRow number={id} key={row.id} row={row} />
+            ))}
         </tbody>
       </table>
     </section>
