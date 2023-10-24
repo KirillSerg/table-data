@@ -2,9 +2,12 @@
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import service from "../(service)/service";
+import { useState } from "react";
 
 const LoginMenu = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -14,14 +17,11 @@ const LoginMenu = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append("username", data.username);
-    formData.append("password", data.password);
-
+  const onSubmit = async (data) => {
+    const responseLogUser = await service.login(data);
+    console.log(responseLogUser);
     document.getElementById("myform").reset();
-    router.push("/DataPage");
+    if (responseLogUser.ok) router.push("/DataPage");
   };
 
   return (
