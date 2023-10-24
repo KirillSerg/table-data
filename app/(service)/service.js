@@ -15,4 +15,13 @@ const login = async (requestData) => {
   }
 };
 
-export default { login };
+const getData = async () => {
+  try {
+    const response = await fetch(`${url}/table/`);
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export default { login, getData };
