@@ -1,4 +1,4 @@
-const url = "https://technical-task-api.icapgroupgmbh.com/api";
+const baseUrl = "https://technical-task-api.icapgroupgmbh.com/api";
 
 const login = async (requestData) => {
   try {
@@ -15,9 +15,9 @@ const login = async (requestData) => {
   }
 };
 
-const getData = async () => {
+const getData = async (url) => {
   try {
-    const response = await fetch(`${url}/table/`);
+    const response = await fetch(`${url ? url : baseUrl + "/table/"}`);
     return response.json();
   } catch (error) {
     throw new Error(error);

@@ -3,9 +3,24 @@
 import { useEffect, useState } from "react";
 import service from "../(service)/service";
 import TableRow from "../(components)/TableRow";
+import { useSearchParams } from "next/navigation";
 
 const DataPage = () => {
   const [data, setData] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const hendlerNextPage = async () => {
+    const response = await service.getData(`${data.next}`);
+    if (response) {
+      setData(response);
+    }
+  };
+  const hendlerPrevPage = async () => {
+    const response = await service.getData(`${data.previous}`);
+    if (response) {
+      setData(response);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -17,7 +32,7 @@ const DataPage = () => {
   }, []);
 
   return (
-    <section className="p-5">
+    <section className="p-5 flex flex-col items-center">
       <div className="h-[80vh] overflow-y-auto">
         <table className="w-full">
           <thead>
@@ -46,6 +61,10 @@ const DataPage = () => {
               ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex flex-row w-1/3 py-4 max-w-lg justify-between text-2xl text-blue-800">
+        <button onClick={hendlerPrevPage}>{"<<Prev"}</button>
+        <button onClick={hendlerNextPage}>{"Next>>"}</button>
       </div>
     </section>
   );
