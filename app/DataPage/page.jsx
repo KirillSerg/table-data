@@ -3,36 +3,42 @@
 import { useEffect, useState } from "react";
 import service from "../(service)/service";
 import TableRow from "../(components)/TableRow";
-import { useSearchParams } from "next/navigation";
 
 const DataPage = () => {
   const [data, setData] = useState(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const hendlerNextPage = async () => {
+    setIsLoading(true);
     const response = await service.getData(`${data.next}`);
     if (response) {
       setData(response);
     }
+    setIsLoading(false);
   };
   const hendlerPrevPage = async () => {
+    setIsLoading(true);
     const response = await service.getData(`${data.previous}`);
     if (response) {
       setData(response);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
+    setIsLoading(true);
     (async () => {
       const tableResponse = await service.getData();
       if (tableResponse) {
         setData(tableResponse);
       }
+      setIsLoading(false);
     })();
   }, []);
 
   return (
     <section className="p-5 flex flex-col items-center">
+      {isLoading && <h1>...Loading</h1>}
       <div className="h-[80vh] overflow-y-auto">
         <table className="w-full">
           <thead>

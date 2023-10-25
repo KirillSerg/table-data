@@ -26,7 +26,7 @@ const getData = async (url) => {
 
 const updateData = async (id, requestData) => {
   try {
-    const response = await fetch(`${url}/table/${id}/`, {
+    const response = await fetch(`${baseUrl}/table/${id}/`, {
       method: "PATCH",
       body: JSON.stringify(requestData),
       headers: {
