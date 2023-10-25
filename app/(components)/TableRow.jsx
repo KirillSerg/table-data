@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import service from "../(service)/service";
-
-const dateFormating = (date) => {
-  let [d, m, y] = date.split(/\D/);
-  console.log("20" + y + "-" + m + "-" + d);
-  return "20" + y + "-" + m + "-" + d;
-};
+import { dateFormating } from "../(assets)/utils";
 
 const TableRow = ({ number, row }) => {
   console.log(row.birthday_date);

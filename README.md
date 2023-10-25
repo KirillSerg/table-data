@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Стек: React, Redux, Redux toolkit, TypeScript, для роботи зі стилями обирайте те що вам до вподоби, сторонні бібліотеки за бажанням. Використання Next js не э обовʼязковим, але це додасть вам пару балів, так само як і наявність анімацій
 
-## Getting Started
+Після виконання: надіслати лінк на репозиторій в GitHub та посилання на деплой (Heroku/Vercel/Netlify )
 
-First, run the development server:
+Завдання:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Cтворити сторінку для логіну користувача, після успішної авторизації на якій має відкритися сторінка з таблицею, дані для якої ви зможете отримати через наш API.
+Верстка має виглядати акуратно, але акцент робіть на якості коду а не на візуальній складовій
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. LOGIN PAGE
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+На ній має бути 2 поля введення, одне для логіну, друге для паролю. В базі даних є тільки 1 створений користувач, його username: testuser його пароль: testpassword123
+Для успішної авторизації потрібно ввести їх. Якщо логін або пароль неправильні, у відповіді на запит про це буде вказано.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+В цій частині тестового завдання зробіть акцент на валідації форми та роботі зі статусами запитів. Зробіть етап логіну максимально юзер-френдлі
 
-## Learn More
+1. TABLE PAGE
 
-To learn more about Next.js, take a look at the following resources:
+Вам потрібно створити максимально універсальну таблицю, яка буде приймати дані та виводити їх.
+Дані для таблиці ви можете отримати за адресою: https://technical-task-api.icapgroupgmbh.com/api/table/
+Для всіх полів має бути опція редагування та збереження оновлених даних. Майте на увазі що поля мають валідацію на стороні бекенду, яку ви можете переглянути у відповідному ендпоінті в swagger: https://technical-task-api.icapgroupgmbh.com/swagger/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+В цій частині тестового завдання зробіть акцент на роботі з даними, їх отриманням, редагуванням, не забувайте про обробку помилок та пагінацію. Фільтри, сортування та пошук можете імплемнентувати за бажання
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Під таблицею з даними ви можете додати коментар, розповісти щось про себе або вставити мем) Не бійтеся креативити!
