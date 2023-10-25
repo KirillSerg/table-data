@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import service from "../(service)/service";
 import { dateFormating } from "../(assets)/utils";
+import Image from "next/image";
+import saveImg from "../(assets)/icons/save.svg";
+import pencilImg from "../(assets)/icons/pencil.svg";
 
 const TableRow = ({ number, row }) => {
-  console.log(row.birthday_date);
   const [rowData, setRowData] = useState({
     name: row.name,
     email: row.email,
@@ -11,6 +13,7 @@ const TableRow = ({ number, row }) => {
     phone_number: row.phone_number,
     address: row.address,
   });
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleChange = (key, e) => {
     setRowData((prev) => {
@@ -18,24 +21,29 @@ const TableRow = ({ number, row }) => {
     });
   };
 
-  const onClick = async () => {
+  const handleSaveBtn = async () => {
     const resp = await service.updateData(row.id, rowData);
     if (resp) {
-      console.log(resp);
+      setIsEdit(false);
     }
   };
 
+  const handleEditBtn = async () => {
+    setIsEdit(true);
+  };
+
   return (
-    <tr>
+    <tr className={`${isEdit ? "animate-pulse" : ""}`}>
       <td>
         <textarea
-          disabled
+          readOnly
           className="w-full border-solid border-2 p-1 resize-none"
           defaultValue={number + 1}
         />
       </td>
       <td>
         <textarea
+          readOnly
           className="w-full border-solid border-2 p-1 resize-none"
           defaultValue={row.id}
         />
@@ -43,14 +51,38 @@ const TableRow = ({ number, row }) => {
       {Object.entries(rowData).map((pare, id) => (
         <td key={id}>
           <textarea
-            className="w-full border-solid border-2 p-1 resize-none"
+            readOnly={!isEdit}
+            className="w-full border-solid border-2 p-1 resize-none read-only:"
             defaultValue={pare[1]}
             onChange={(e) => handleChange(pare[0], e)}
           />
         </td>
       ))}
-      <td>
-        <button onClick={onClick}>V</button>
+      <td className="h-auto table-cell">
+        <div className="h-auto flex lfex-row">
+          <button disabled={isEdit} onClick={handleEditBtn} className="w-10">
+            <Image
+              width={40}
+              height={40}
+              src={pencilImg}
+              alt="change"
+              style={!isEdit ? "" : { opacity: "0.2" }}
+            />
+          </button>
+          <button
+            disabled={!isEdit ? true : false}
+            onClick={handleSaveBtn}
+            className="w-10"
+          >
+            <Image
+              width={40}
+              height={40}
+              src={saveImg}
+              alt="save"
+              style={isEdit ? "" : { opacity: "0.2" }}
+            />
+          </button>
+        </div>
       </td>
     </tr>
   );
