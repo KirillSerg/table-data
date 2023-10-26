@@ -9,20 +9,24 @@ const DataPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const hendlerNextPage = async () => {
-    setIsLoading(true);
-    const response = await service.getData(`${data.next}`);
-    if (response) {
-      setData(response);
+    if (data.next) {
+      setIsLoading(true);
+      const response = await service.getData(`${data.next}`);
+      if (response) {
+        setData(response);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
   const hendlerPrevPage = async () => {
-    setIsLoading(true);
-    const response = await service.getData(`${data.previous}`);
-    if (response) {
-      setData(response);
+    if (data.previous) {
+      setIsLoading(true);
+      const response = await service.getData(`${data.previous}`);
+      if (response) {
+        setData(response);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -69,8 +73,20 @@ const DataPage = () => {
         </table>
       </div>
       <div className="flex flex-row w-1/3 py-4 max-w-lg justify-between text-2xl text-blue-800">
-        <button onClick={hendlerPrevPage}>{"<<Prev"}</button>
-        <button onClick={hendlerNextPage}>{"Next>>"}</button>
+        <button
+          disabled={!data?.previous}
+          onClick={hendlerPrevPage}
+          className={`${!data?.previous ? "text-slate-600" : ""}`}
+        >
+          {"<<Prev"}
+        </button>
+        <button
+          disabled={!data?.next}
+          onClick={hendlerNextPage}
+          className={`${!data?.next ? "text-slate-600" : ""}`}
+        >
+          {"Next>>"}
+        </button>
       </div>
     </section>
   );

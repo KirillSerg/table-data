@@ -2,7 +2,7 @@ const baseUrl = "https://technical-task-api.icapgroupgmbh.com/api";
 
 const login = async (requestData) => {
   try {
-    const response = await fetch(`${url}/login/`, {
+    const response = await fetch(`${baseUrl}/login/`, {
       method: "POST",
       body: JSON.stringify(requestData),
       headers: {
